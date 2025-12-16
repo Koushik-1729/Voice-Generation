@@ -43,7 +43,7 @@ group :development, :test do
   gem "faker", "~> 3.4"
   gem "debug", platforms: %i[ mri windows ]
   gem "webmock", "~> 3.23"
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 7.0"
 end
 
 group :development do
