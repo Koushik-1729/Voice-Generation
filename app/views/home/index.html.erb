@@ -1,0 +1,66 @@
+<div class="min-h-screen bg-gray-900 text-white font-sans selection:bg-indigo-500 selection:text-white" data-controller="audio-generator">
+  <div class="container mx-auto px-4 py-8 max-w-3xl">
+    <!-- Header -->
+    <header class="text-center mb-12 animate-fade-in-down">
+      <h1 class="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400 mb-4 tracking-tight">
+        VoiceSynth AI
+      </h1>
+      <p class="text-gray-400 text-lg">Type something amazing, and hear it come to life.</p>
+    </header>
+
+    <!-- Generator Interface -->
+    <div class="bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-700/50 backdrop-blur-sm mb-12 transform transition-all hover:scale-[1.01] duration-300">
+      <form data-action="submit->audio-generator#submit" id="generation-form">
+        <label for="text" class="block text-sm font-medium text-gray-300 mb-2 uppercase tracking-wide">Enter Text</label>
+        <div class="relative">
+          <textarea
+            id="text"
+            name="text"
+            rows="4"
+            class="w-full bg-gray-900 border border-gray-600 rounded-xl p-4 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-lg resize-none shadow-inner"
+            placeholder="Once upon a time in a digital galaxy far, far away..."
+            data-audio-generator-target="input"
+            required
+          ></textarea>
+        </div>
+        
+        <div class="mt-6 flex justify-end">
+          <button
+            type="submit"
+            class="group relative inline-flex items-center justify-center px-8 py-3 text-base font-semibold text-white transition-all duration-200 bg-indigo-600 rounded-full hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:ring-offset-gray-900 shadow-lg shadow-indigo-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+            data-audio-generator-target="button"
+          >
+            <span class="mr-2 data-[loading=true]:hidden">Generate Voice</span>
+            <span class="hidden group-disabled:inline-block animate-spin mr-2">
+              <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </span>
+             <span class="hidden group-disabled:inline-block">Synthesizing...</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-disabled:hidden group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <p class="text-red-400 text-sm mt-3 hidden" data-audio-generator-target="error"></p>
+      </form>
+    </div>
+
+    <!-- History -->
+    <div class="space-y-6">
+      <h2 class="text-2xl font-bold text-gray-200 border-b border-gray-700 pb-2 mb-6 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Recent Generations
+      </h2>
+      
+      <div id="history-container" class="space-y-4" data-audio-generator-target="history">
+        <% @voice_generations.each do |generation| %>
+          <%= render partial: 'home/voice_generation', locals: { generation: generation } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

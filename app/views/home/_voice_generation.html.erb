@@ -1,0 +1,43 @@
+<div class="bg-gray-800 rounded-xl p-5 border border-gray-700 shadow-lg hover:bg-gray-750 transition-colors flex items-center justify-between group" id="voice_generation_<%= generation.id %>">
+  <div class="flex-1 min-w-0 pr-4">
+    <p class="text-gray-300 font-medium truncate mb-2" title="<%= generation.text %>">
+      "<%= generation.text %>"
+    </p>
+    <div class="flex items-center text-xs text-gray-500 space-x-3">
+      <span class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <%= time_ago_in_words(generation.created_at) %> ago
+      </span>
+      
+      <% status_colors = { 'pending' => 'text-yellow-500', 'processing' => 'text-blue-500', 'completed' => 'text-green-500', 'failed' => 'text-red-500' } %>
+      <span class="uppercase tracking-wider font-bold <%= status_colors[generation.status] %>">
+        <%= generation.status %>
+      </span>
+    </div>
+  </div>
+
+  <div class="flex-shrink-0">
+    <% if generation.completed? && generation.audio_url.present? %>
+      <audio controls class="h-8 w-64 rounded-lg bg-gray-900">
+        <source src="<%= generation.audio_url %>" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    <% elsif generation.processing? || generation.pending? %>
+      <div class="animate-pulse flex space-x-1 items-center bg-gray-900 px-3 py-1.5 rounded-full">
+        <div class="h-2 w-2 bg-indigo-500 rounded-full animate-bounce"></div>
+        <div class="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+        <div class="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+        <span class="text-xs text-indigo-400 font-semibold ml-1">Working...</span>
+      </div>
+    <% elsif generation.failed? %>
+       <span class="text-red-400 text-sm flex items-center" title="<%= generation.error_message %>">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Error
+       </span>
+    <% end %>
+  </div>
+</div>
