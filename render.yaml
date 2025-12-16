@@ -18,11 +18,7 @@ services:
         sync: false
       - key: WEB_CONCURRENCY
         value: "2"
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: voice-gen-redis
-          property: connectionString
+
 
   - type: worker
     name: voice-gen-worker
@@ -42,7 +38,4 @@ services:
           name: voice-gen-redis
           property: connectionString
 
-  - type: redis
-    name: voice-gen-redis
-    ipAllowList: [] # Access only from internal services
-    plan: free # Note: Render Free Redis is ephemeral (good for jobs, not persistent data)
+
