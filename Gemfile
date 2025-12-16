@@ -24,7 +24,7 @@ gem "redis", "~> 5.0"
 
 # External services
 gem "httparty", "~> 0.21"
-gem "cloudinary", "~> 1.28"
+gem "cloudinary", "~> 2.4"
 
 # Rate limiting
 gem "rack-attack", "~> 6.7"
