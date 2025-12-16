@@ -9,7 +9,7 @@ group :production do
 end
 
 group :development, :test do
-  gem "sqlite3", "~> 1.4"
+  gem "sqlite3", "~> 2.8"
 end
 gem "puma", ">= 5.0"
 gem "importmap-rails"
