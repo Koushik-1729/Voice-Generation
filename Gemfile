@@ -23,7 +23,7 @@ gem "sidekiq", "~> 8.1"
 gem "redis", "~> 5.0"
 
 # External services
-gem "httparty", "~> 0.21"
+gem "httparty", "~> 0.24"
 gem "cloudinary", "~> 1.28"
 
 # Rate limiting
