@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Explicitly require psych to fix bundler conflict
 # gem "psych", "~> 5.0"
 
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 8.1.1"
 group :production do
   gem "pg", "~> 1.6"
 end
